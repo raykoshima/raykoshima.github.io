@@ -41,18 +41,21 @@ headerLogoConatiner.addEventListener('click', () => {
 
 
 //my js script
-function printAlphabets() {
-  // สร้างตัวแปรเพื่อเก็บตัวอักษร A-Z
-  const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+function calcirisl22(radius) {
+  return 2 * Math.PI * radius;
+}
+function calcirisl() {
+  let inputElement = document.getElementById("calcirisl");
+  let resultElement = document.getElementById("atoz");
 
-  // ใช้ forEach เพื่อวนลูปผ่านทุกตัวอักษร
-alphabets.split('').forEach((alphabet, index) => {
-    // ใช้ setTimeout เพื่อกำหนดระยะเวลาการแสดงผล
-    setTimeout(() => {
-      document.getElementById("atoz").innerHTML = alphabet;
-      console.log(alphabet);
-    }, index * 1000); // 1000 milliseconds = 1 วินาที
-  });
+  let radius = parseFloat(inputElement.value);
+
+  if (!isNaN(radius)) {
+      let circumference = calcirisl22(radius);
+      resultElement.textContent = circumference.toFixed(2);
+  } else {
+      resultElement.textContent = "กรุณากรอกค่าที่ถูกต้อง";
+  }
 }
 printAlphabets();
 
@@ -73,31 +76,71 @@ function myFunction2() {
   document.getElementById("demo3").innerHTML = text;
 }
 
-function catapilol() {
-  fetch("https://catfact.ninja/fact")
-    .then(function(response){
-      return response.json()
-    })
-    .then(function(data){
-      let txt = "";
-        for (let x in data) {
-          txt += data[x] + " ";
-        document.getElementById("catcat").innerHTML = txt;
-        };
-    
-      return data;
-    })  
-    
 
+function randomnumberr(){
+  document.getElementById("showrannumber").innerHTML = "สุ่มตัวเลข: " + Math.floor(Math.random() * 11);
+}
+
+function bigtextt(){
+  var str = prompt("Enter name ");
+  var res = str.slice(0,1).toUpperCase()+str.slice(1);
+  document.getElementById("showbigtext").innerHTML = "ตัวอักษรตัวแรกใหญ่เสมอ: " + res;
+  alert(res);
 }
 
 var typed = new Typed('#element', {
-  strings: ['programming','play minecraft.', 'play apex legends'],
+  strings: ['programming.','play minecraft.', 'cat.'],
   typeSpeed: 60,
   backDelay: 4000,
   smartBackspace: true,
   showCursor: true,
-  cursorChar: '<b><font color="#B1B2FF">|</font></b>',
+  cursorChar: '<b><font color="#FFFFFFFF">|</font></b>',
   autoInsertCss: true,
   loop: true
 });
+
+//getRandomQuote
+function getRandomQuote() {
+  const apiUrl = 'https://animechan.xyz/api/random';
+  fetch(apiUrl).then(response => {
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.status}`);
+    }
+    return response.json();
+  })
+    .then(dataText => {
+      console.log(dataText);
+      const imageAPI = `https://api.jikan.moe/v4/characters?q=${dataText.character}`
+      fetch(imageAPI).then(responseImage =>{
+        if(!responseImage.ok){
+          throw new Error(`Network response was not ok: ${responseImage.status}`);
+        }
+        return responseImage.json();
+      }).then(image => {
+        // console.log(image);
+        console.log(image.data[0].images.webp.image_url);
+        const animeimage = document.getElementById('animeimage');
+        animeimage.src = image.data[0].images.webp.image_url;
+      })
+      document.getElementById("catcat").innerHTML = dataText.quote + "<br>- " + dataText.character +" ("+dataText.anime+")";
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
+}
+
+async function getAnimePoster(){
+  const parameterValue = document.getElementById('posterfinder').value;
+
+  const posterAPI = `https://api.jikan.moe/v4/anime?q=${parameterValue}&sfw`;
+  fetch(posterAPI).then(responsePoster =>{
+    if(!responsePoster.ok){
+      throw new Error(`Network response was not ok: ${responseImage.status}`);
+    }
+    return responsePoster.json();
+  }).then(poster =>{
+    console.log(poster.data[0].images.webp.image_url);
+    const PosterImage = document.getElementById('PosterImage');
+    PosterImage.src = poster.data[0].images.webp.image_url;
+  })
+}
