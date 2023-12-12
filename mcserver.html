@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="text" id="ipserver" value="raykominecraft.ddns.net:26480"><br>
+    <input type="text" id="ipserver" value="myzvuqv.mc.in.th:26480"><br>
     <button onclick="fetchserverstatus()">FETCH</button>
     <p id="resultContainer"></p>
     <div id="playername"></div>
@@ -42,9 +42,8 @@
                 
                     
                 })
-                var bannerpara = parameterValue.slice(0, parameterValue.indexOf(':'));
                 const mcbanner = document.getElementById('mcbanner');
-                mcbanner.src = `https://namemc.com/server/${bannerpara}/embed`;
+                mcbanner.src = `https://namemc.com/server/${parameterValue}/embed`;
             })
         }
     </script>
