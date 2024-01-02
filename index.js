@@ -144,3 +144,4 @@ async function getAnimePoster(){
     PosterImage.src = poster.data[0].images.webp.image_url;
   })
 }
+//
